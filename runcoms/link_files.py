@@ -18,9 +18,11 @@ def generate_name_files(list_of_files: list):
 
 def create_links(file: Path, link: str, env, hard_link=False):
   if hard_link:
-    print(f"{file.absolute()} => {env}/{link}")
+    file.hardlink_to(f"{env}/{link}")
+    print(f"{env}/{link} => {file.resolve()}")
   else:
-    print(f"{file.absolute()} -> {env}/{link}")
+    file.symlink_to(f"{env}/{link}")
+    print(f"{env}/{link} -> {file.resolve()}")
 
 
 
@@ -30,4 +32,8 @@ files = filter_files(this_dir)
 
 links = generate_name_files(files)
 
+c = 0
 
+while c != len(files):
+  create_links(files[c], links[c], environ["HOME"], True)
+  c+=1
