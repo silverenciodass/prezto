@@ -16,8 +16,18 @@ def generate_name_files(list_of_files: list):
   return list(mapper)
 
 
+def create_links(file: Path, link: str, env, hard_link=False):
+  if hard_link:
+    print(f"{file.absolute()} => {env}/{link}")
+  else:
+    print(f"{file.absolute()} -> {env}/{link}")
+
+
+
 this_dir = Path(".")
 
 files = filter_files(this_dir)
 
 links = generate_name_files(files)
+
+
