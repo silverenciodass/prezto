@@ -1,18 +1,16 @@
 from pathlib import Path
 from os import environ
 
+
 def filter_files(directory: Path):
 
-  files = []
+  filtered = filter(lambda f: str(f)[0] == "z", directory.iterdir())
 
-  for f in directory.iterdir():
-    if str(f)[0] == "z":
-      files.append(f)
+  return list(filtered)
 
-  return files
 
 this_dir = Path(".")
 
-files = []
+files = filter_files(this_dir)
 
 
