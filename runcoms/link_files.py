@@ -17,11 +17,14 @@ def generate_name_files(list_of_files: list):
 
 
 def create_links(file: Path, link: str, env, hard_link=False):
+
+  l = Path(f"{env}/{link}")
+
   if hard_link:
-    file.hardlink_to(f"{env}/{link}")
+    l.hardlink_to(file)
     print(f"{env}/{link} => {file.resolve()}")
   else:
-    file.symlink_to(f"{env}/{link}")
+    l.symlink_to(file)
     print(f"{env}/{link} -> {file.resolve()}")
 
 
